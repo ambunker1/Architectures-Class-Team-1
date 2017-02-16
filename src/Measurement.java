@@ -12,7 +12,15 @@ public class Measurement {
   public Measurement(byte[] argMeasurementBytes) {
     ByteBuffer buff = ByteBuffer.wrap(argMeasurementBytes);
     id = buff.getInt();
+    if(id==MeasurementId.TIME.ordinal()){
+
+    	//value = (double) buff.getInt();
+    	long y = buff.getLong();
+    	value = (double) y;
+    }
+    else{
     value = buff.getDouble();
+    }
   }
 
   /**
