@@ -26,6 +26,33 @@ public class Frame {
   public Queue<Measurement> getMeasurements() {
     return measurements;
   }
+  
+  public boolean HasMeasurement(MeasurementId id){
+	  for (Measurement m : measurements){
+		  if(m.getMeasurementId()==id){
+			  return true;
+		  }
+	  }
+	  return false;
+  }
+  
+  public Measurement GetMeasurement(MeasurementId id){
+	  for(Measurement m: measurements){
+		  if(m.getMeasurementId()==id){
+			  return m;
+		  }
+	  }
+	  return null;
+  }
+  
+  public void SetMeasurement(MeasurementId id, double value){
+	  for(Measurement m: measurements){
+		  if(m.getMeasurementId()==id){
+			  m.setValue(value);
+			  break;
+		  }
+	  }
+  }
 
   /**
    * Converts current frame into byte array.
