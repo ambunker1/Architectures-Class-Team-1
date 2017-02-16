@@ -36,7 +36,7 @@ public class Frame {
 			}
 		}
 		
-		return sb.toString().replace(", ", " ]");
+		return sb.toString().replaceAll(", $", " ]");
 	}
 
 	public List<Measurement> getMeasurements() {
