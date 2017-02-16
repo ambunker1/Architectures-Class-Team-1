@@ -3,23 +3,21 @@ public class SystemA {
 
 	   public static void main( String argv[])
 	   {
-			SourceFilter filter1 = new SourceFilter();
-			FahrenheitToCelsiusFilter filter2 = new FahrenheitToCelsiusFilter();
-			FeetToMeterFilter filter3 = new FeetToMeterFilter();
-			SinkFilter filter4 = new SinkFilter();
-			MeasurementId[] ids = new MeasurementId[2];
-			ids[0] = MeasurementId.ALTITUDE;
-			ids[1] = MeasurementId.TEMPERATURE;
-			
-			DataSelectionFilter selectFilter = new DataSelectionFilter(ids);
+			SourceFilter sourceFilter = new SourceFilter();
+			FahrenheitToCelsiusFilter fahrenheitToCelsiusFilter = new FahrenheitToCelsiusFilter();
+			FeetToMeterFilter feetToMeterFilter = new FeetToMeterFilter();
+			DataSelectionFilter selectFilter = new DataSelectionFilter(MeasurementId.TIME, MeasurementId.ALTITUDE, MeasurementId.TEMPERATURE);
+			SinkFilterFileWriter sinkFilter = new SinkFilterFileWriter("OutputA.dat");
 
-			filter4.Connect(filter3);
-			filter3.Connect(filter2); // This essentially says, "connect Filter3 input port to Filter2 output port
-			filter2.Connect(filter1); // This essentially says, "connect Filter2 intput port to Filter1 output port
+			sinkFilter.Connect(selectFilter); // Connect sinkFilter input port to selecFilter output port.
+			selectFilter.Connect(feetToMeterFilter);
+			feetToMeterFilter.Connect(fahrenheitToCelsiusFilter); 
+			fahrenheitToCelsiusFilter.Connect(sourceFilter); 
 
-			filter1.start();
-			filter2.start();
-			filter3.start();
-			filter4.start();
+			sourceFilter.start();
+			fahrenheitToCelsiusFilter.start();
+			feetToMeterFilter.start();
+			selectFilter.start();
+			sinkFilter.start();
 	   }
 }

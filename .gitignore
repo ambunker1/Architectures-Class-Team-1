@@ -1,3 +1,5 @@
+OutputA.dat
 bin/*
 .metadata/*
 .settings/
+/bin/
