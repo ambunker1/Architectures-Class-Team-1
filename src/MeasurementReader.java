@@ -3,9 +3,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * An utility that reads bytes one at a time and builds Measurement model out of 
+ * A utility that reads bytes one at a time and builds Measurement model out of 
  * the byte sequence. Holds the measurements until they get polled out.
- * @author bsanchin
+ * @author team-one
  */
 public class MeasurementReader {
 

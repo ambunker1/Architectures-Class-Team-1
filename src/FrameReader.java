@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * An utility that reads bytes one at a time and builds frames out of the byte
+ * A utility that reads bytes one at a time and builds frames out of the byte
  * sequence. Holds the frames until they get polled out. <br/><br/> 
  * A frame always starts with a Time measurement. <br/><br/>
  * This class maybe useful for implementing the System-C.
