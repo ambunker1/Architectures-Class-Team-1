@@ -25,12 +25,7 @@ public class SinkFilterFileWriter extends FilterFramework {
       // alive...
   
       FrameReader frameReader = new FrameReader();
-     // FileWriter fileWriter = new FileWriter(outFile);
-     // BufferedWriter buffWriter = new BufferedWriter(fileWriter);
       PrintWriter buffWriter = new PrintWriter(outFile);
-      int framesWritten = 0;
-  
- 
   
       while (true) {
         /*************************************************************
@@ -44,12 +39,9 @@ public class SinkFilterFileWriter extends FilterFramework {
   
           if (frameReader.hasFrameAvailable()) {
 
-        	Frame f = frameReader.pollFrame();
-//        	System.out.println("Writing Frame "+ framesWritten + " : " + f.toString());
+          Frame f = frameReader.pollFrame();
             buffWriter.write(f.toString());
             buffWriter.write(NEWLINE);
-            framesWritten++;
- //           System.out.println(bytesread + " bytes read and " + framesWritten + " frames written");
           }
   
         } // try
@@ -57,8 +49,7 @@ public class SinkFilterFileWriter extends FilterFramework {
         catch (EndOfStreamException e) {
           frameReader.stop();
           while (frameReader.hasFrameAvailable()) {
-        	Frame f = frameReader.pollFrame();
-     //   	System.out.println("Writing Frame: " + f.toString());
+          Frame f = frameReader.pollFrame();
             buffWriter.write(f.toString());  
           }
           ClosePorts();
@@ -71,8 +62,6 @@ public class SinkFilterFileWriter extends FilterFramework {
       } // while
       buffWriter.flush();
       buffWriter.close();
-     // fileWriter.flush();
-     // fileWriter.close();
       
     } catch (IOException e1) {
       e1.printStackTrace();

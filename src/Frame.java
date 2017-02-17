@@ -27,28 +27,43 @@ public class Frame {
     return measurements;
   }
   
-  public boolean HasMeasurement(MeasurementId id){
+  /**
+   * Checks if frame contains measurement type.
+   * @param argId measurement id/type
+   * @return true if frame contains measurement type/id, false otherwise
+   */
+  public boolean hasMeasurement(MeasurementId argId){
 	  for (Measurement m : measurements){
-		  if(m.getMeasurementId()==id){
+		  if(m.getMeasurementId()==argId){
 			  return true;
 		  }
 	  }
 	  return false;
   }
   
-  public Measurement GetMeasurement(MeasurementId id){
+  /**
+   * Returns the measurement that matches given type/id.
+   * @param argId measure type/id
+   * @return measurement that matches given type/id
+   */
+  public Measurement getMeasurement(MeasurementId argId){
 	  for(Measurement m: measurements){
-		  if(m.getMeasurementId()==id){
+		  if(m.getMeasurementId()==argId){
 			  return m;
 		  }
 	  }
 	  return null;
   }
   
-  public void SetMeasurement(MeasurementId id, double value){
+  /**
+   * Sets the value of the measurement that matches the given type/id
+   * @param argId type/id of the measurement
+   * @param argValue value to be set on the measurement type/id
+   */
+  public void setMeasurement(MeasurementId argId, double argValue){
 	  for(Measurement m: measurements){
-		  if(m.getMeasurementId()==id){
-			  m.setValue(value);
+		  if(m.getMeasurementId()==argId){
+			  m.setValue(argValue);
 			  break;
 		  }
 	  }

@@ -3,22 +3,14 @@
  * @author team-one
  */
 public class FeetToMeterFilter extends AbstractMeasurementFilter {
-	private int num = 1;
   /** {@inheritDoc} */
   @Override
   protected byte[] doFilter(Measurement argMeasurement) {
     if (MeasurementId.ALTITUDE == argMeasurement.getMeasurementId()) {
-      // convert fahrenheit to celsius
+      // convert feet to meter
       argMeasurement.setValue(argMeasurement.getValue() / 0.3048);
     }
-    byte[] b = argMeasurement.toByteArray();
-    String outstring = "";
-    for (byte b1 : b){
-    	outstring = outstring + String.format("%02x", b1);
-    }
-    num++;
-    return b;
-    //return argMeasurement.toByteArray();
+    return argMeasurement.toByteArray();
   }
 
 }

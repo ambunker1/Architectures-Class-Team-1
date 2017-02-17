@@ -45,19 +45,19 @@ public class PressureFilter extends FilterFramework {
 				if(needWildCorrection){
 					double correctedPressure;
 					if(firstPressure){
-						correctedPressure = frame.GetMeasurement(MeasurementId.PRESSURE).getValue();
+						correctedPressure = frame.getMeasurement(MeasurementId.PRESSURE).getValue();
 					}
 					else{
-						correctedPressure = (lastPressure.getValue() + frame.GetMeasurement(MeasurementId.PRESSURE).getValue()) /2.0;
+						correctedPressure = (lastPressure.getValue() + frame.getMeasurement(MeasurementId.PRESSURE).getValue()) /2.0;
 					}
-					wildFrame.SetMeasurement(MeasurementId.PRESSURE, correctedPressure);
+					wildFrame.setMeasurement(MeasurementId.PRESSURE, correctedPressure);
 					for(byte b : wildFrame.toByteArray()){
 						WriteFilterOutputPort(b);
 					}
 					needWildCorrection = false;
 				}
-				if(frame.HasMeasurement(MeasurementId.PRESSURE)){
-					Measurement pressure = frame.GetMeasurement(MeasurementId.PRESSURE);
+				if(frame.hasMeasurement(MeasurementId.PRESSURE)){
+					Measurement pressure = frame.getMeasurement(MeasurementId.PRESSURE);
 					if(pressure.getValue()<0 || (!firstPressure && Math.abs(pressure.getValue() - lastPressure.getValue())>10)){
 						wildFrame = frame;
 						needWildCorrection = true;
