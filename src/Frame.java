@@ -93,6 +93,14 @@ public class Frame {
     buffer.flip();
     return buffer.array();
   }
+  
+  /**
+   * Returns size of the frame in bytes.
+   * @return frame size in bytes
+   */
+  public int getByteSize() {
+    return Measurement.BYTESIZE * measurements.size();
+  }
 
   /** {@inheritDoc} */
   @Override

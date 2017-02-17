@@ -43,7 +43,7 @@ public class SinkFilterFileWriter extends FilterFramework {
             Frame f = frameReader.pollFrame();
             buffWriter.write(f.toString());
             buffWriter.write(NEWLINE);
-            byteswritten += f.toByteArray().length;
+            byteswritten += f.getByteSize();
           }
 
         } // try
@@ -53,7 +53,7 @@ public class SinkFilterFileWriter extends FilterFramework {
           while (frameReader.hasFrameAvailable()) {
             Frame f = frameReader.pollFrame();
             buffWriter.write(f.toString());
-            byteswritten += f.toByteArray().length;
+            byteswritten += f.getByteSize();
           }
           ClosePorts();
           System.out.print(
