@@ -3,3 +3,8 @@ bin/*
 .metadata/*
 .settings/
 /bin/
+src/test/*
+Zero.dat
+src/SystemZero.java
+.classpath
+lib/*

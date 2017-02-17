@@ -1,6 +1,5 @@
 import java.nio.ByteBuffer;
 import java.util.Date;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -64,13 +63,13 @@ public class Frame {
     for (Measurement m : measurements) {
       buffer.put(m.toByteArray());
     }
+    buffer.flip();
     return buffer.array();
   }
 
   /** {@inheritDoc} */
   @Override
   public String toString() {
-    Calendar cal = Calendar.getInstance();
     StringBuilder sb = new StringBuilder();
     sb.append("Measurement: [ ");
 
@@ -79,13 +78,11 @@ public class Frame {
     	Date date = new Date();
         sb.append("time: ");
         try {
-            date = new Date(new Double(m.getValue()).longValue());
-         // cal.setTimeInMillis(Long.valueOf(m.getValue().toString()));  
+            date = new Date(m.getValue().longValue());
         } catch (NumberFormatException nfe) {
           System.err.println("Failed to convert " + m.getValue() + " to milliseconds.");
         }
         sb.append(FrameReader.DATE_FORMATTER.format(date));
-      //  sb.append(m.getValue());
       } else {
         sb.append(", ");
         sb.append(m.toString());

@@ -12,7 +12,7 @@ import java.util.Queue;
  */
 public class FrameReader {
 
-  public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy:MM:dd:HH:mm:SS");
+  public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy:MM:dd:HH:mm:ss");
 
   // LinkedList is O(1) for Queue.add, Queue.poll, and Queue.peek operations.
   private Queue<Frame> frames = new LinkedList<Frame>();
@@ -20,7 +20,6 @@ public class FrameReader {
   private Frame currentFrame = null;
   private boolean inReadMode = true;
   private MeasurementReader mreader = new MeasurementReader();
-  private int framesCompleted = 0;
 
   /**
    * Feed the reader a byte.
@@ -33,8 +32,6 @@ public class FrameReader {
       if (m.getMeasurementId().equals(MeasurementId.TIME)) {
         // first frame
         if (currentFrame == null) {
-          framesCompleted++;
-
           currentFrame = new Frame();
         }
         // next frame is ready for creation
@@ -42,7 +39,6 @@ public class FrameReader {
           // the frame is full, move it out of the way
           // create a new frame, set it current
           currentFrame = new Frame();
-          framesCompleted++;
         }
         frames.add(currentFrame);
       }

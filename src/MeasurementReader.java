@@ -21,8 +21,8 @@ public class MeasurementReader {
     buffer.put(argByte);
     // buffer is now full
     if (!buffer.hasRemaining()) {
-      byte[] b1= buffer.array();
-      Measurement m = new Measurement(b1);
+      buffer.flip();
+      Measurement m = new Measurement(buffer.array());
       measurements.add(m);
       buffer.clear();
     }
