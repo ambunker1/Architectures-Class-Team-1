@@ -15,7 +15,7 @@ public abstract class AbstractMeasurementFilter extends FilterFramework{
 
     MeasurementReader measurementReader = new MeasurementReader();
 
-    System.out.print("\n" + this.getName() + "::Middle Reading ");
+
 
     while (true) {
       /*************************************************************

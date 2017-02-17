@@ -48,6 +48,7 @@ public class SourceFilter extends FilterFramework
 			{
 				databyte = in.readByte();
 				bytesread++;
+
 				WriteFilterOutputPort(databyte);
 				byteswritten++;
 
@@ -66,7 +67,7 @@ public class SourceFilter extends FilterFramework
 			try
 			{
 				in.close();
-				ClosePorts();
+		//		ClosePorts();
 				System.out.println( "\n" + this.getName() + "::Read file complete, bytes read::" + bytesread + " bytes written: " + byteswritten );
 
 			}

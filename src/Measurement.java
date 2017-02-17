@@ -1,4 +1,5 @@
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 /**
  * Logical model for a measurement.
  * @author team-one
@@ -8,15 +9,26 @@ public class Measurement {
   public static final int BYTESIZE = 12;
   private int id;
   private Double value;
+  private int num = 1;
 
+  
   public Measurement(byte[] argMeasurementBytes) {
+	 String outstring = "";
+	 for(byte b : argMeasurementBytes){
+		 outstring = outstring + String.format("%02x", b);
+	 }
+	 System.out.println("Creating measurement object " + num + ". Bytestring is " + outstring);
+	 num++;
     ByteBuffer buff = ByteBuffer.wrap(argMeasurementBytes);
     id = buff.getInt();
     if(id==MeasurementId.TIME.ordinal()){
-
+    	
     	//value = (double) buff.getInt();
-    	long y = buff.getLong();
-    	value = (double) y;
+    	Long y = buff.getLong();
+
+    	System.out.println("ms value is " + y);
+    	value = y.doubleValue();
+
     }
     else{
     value = buff.getDouble();

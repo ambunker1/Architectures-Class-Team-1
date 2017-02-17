@@ -2,6 +2,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Writes frames of measurement data to a given file.
@@ -26,8 +27,10 @@ public class SinkFilterFileWriter extends FilterFramework {
       // alive...
   
       FrameReader frameReader = new FrameReader();
-      FileWriter fileWriter = new FileWriter(outFile);
-      BufferedWriter buffWriter = new BufferedWriter(fileWriter);
+     // FileWriter fileWriter = new FileWriter(outFile);
+     // BufferedWriter buffWriter = new BufferedWriter(fileWriter);
+      PrintWriter buffWriter = new PrintWriter(outFile);
+      int framesWritten = 0;
   
       System.out.print("\n" + this.getName() + "::Middle Reading ");
   
@@ -42,8 +45,13 @@ public class SinkFilterFileWriter extends FilterFramework {
           frameReader.put(databyte);
   
           if (frameReader.hasFrameAvailable()) {
-            buffWriter.write(frameReader.pollFrame().toString());
+            System.out.println("Frame available. " + bytesread + " bytes read");
+        	Frame f = frameReader.pollFrame();
+        	System.out.println("Writing Frame "+ framesWritten + " : " + f.toString());
+            buffWriter.write(f.toString());
             buffWriter.write(NEWLINE);
+            framesWritten++;
+            System.out.println(bytesread + " bytes read and " + framesWritten + " frames written");
           }
   
         } // try
@@ -51,7 +59,9 @@ public class SinkFilterFileWriter extends FilterFramework {
         catch (EndOfStreamException e) {
           frameReader.stop();
           while (frameReader.hasFrameAvailable()) {
-            buffWriter.write(frameReader.pollFrame().toString());  
+        	Frame f = frameReader.pollFrame();
+        	System.out.println("Writing Frame: " + f.toString());
+            buffWriter.write(f.toString());  
           }
           ClosePorts();
           System.out.print(
@@ -61,8 +71,10 @@ public class SinkFilterFileWriter extends FilterFramework {
         } // catch
   
       } // while
-      
-      fileWriter.close();
+      buffWriter.flush();
+      buffWriter.close();
+     // fileWriter.flush();
+     // fileWriter.close();
       
     } catch (IOException e1) {
       e1.printStackTrace();

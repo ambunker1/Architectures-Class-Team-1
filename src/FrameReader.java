@@ -20,6 +20,7 @@ public class FrameReader {
   private Frame currentFrame = null;
   private boolean inReadMode = true;
   private MeasurementReader mreader = new MeasurementReader();
+  private int framesCompleted = 0;
 
   /**
    * Feed the reader a byte.
@@ -32,6 +33,8 @@ public class FrameReader {
       if (m.getMeasurementId().equals(MeasurementId.TIME)) {
         // first frame
         if (currentFrame == null) {
+          framesCompleted++;
+
           currentFrame = new Frame();
         }
         // next frame is ready for creation
@@ -39,6 +42,8 @@ public class FrameReader {
           // the frame is full, move it out of the way
           // create a new frame, set it current
           currentFrame = new Frame();
+          framesCompleted++;
+          System.out.println("Framereader read " + framesCompleted + " frames.");
         }
         frames.add(currentFrame);
       }
@@ -69,6 +74,7 @@ public class FrameReader {
       return frames.size() != 0 ? frames.poll() : null;
     }
   }
+  
 
   /**
    * Tell the reader that it will not receive any byte from now on. Invoke
