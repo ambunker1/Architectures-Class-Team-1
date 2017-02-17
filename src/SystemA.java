@@ -8,15 +8,15 @@ public class SystemA {
 			FeetToMeterFilter feetToMeterFilter = new FeetToMeterFilter();
 			DataSelectionFilter selectFilter = new DataSelectionFilter(MeasurementId.TIME, MeasurementId.ALTITUDE, MeasurementId.TEMPERATURE);
 			SinkFilterFileWriter sinkFilter = new SinkFilterFileWriter("OutputA.dat");
-			sinkFilter.Connect(sourceFilter); // Connect sinkFilter input port to selecFilter output port.
-		//	selectFilter.Connect(sourceFilter);
-			//feetToMeterFilter.Connect(fahrenheitToCelsiusFilter); 
-			//fahrenheitToCelsiusFilter.Connect(sourceFilter); 
+			sinkFilter.Connect(selectFilter); // Connect sinkFilter input port to selecFilter output port.
+			selectFilter.Connect(feetToMeterFilter);
+			feetToMeterFilter.Connect(fahrenheitToCelsiusFilter); 
+			fahrenheitToCelsiusFilter.Connect(sourceFilter); 
 
 			sourceFilter.start();
-			//fahrenheitToCelsiusFilter.start();
-			//feetToMeterFilter.start();
-		//	selectFilter.start();
+			fahrenheitToCelsiusFilter.start();
+			feetToMeterFilter.start();
+			selectFilter.start();
 			sinkFilter.start();
 	   }
 }

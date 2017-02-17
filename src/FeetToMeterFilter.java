@@ -16,7 +16,6 @@ public class FeetToMeterFilter extends AbstractMeasurementFilter {
     for (byte b1 : b){
     	outstring = outstring + String.format("%02x", b1);
     }
-    System.out.println("In feet to meter, writing line " + num +" : " + outstring);
     num++;
     return b;
     //return argMeasurement.toByteArray();

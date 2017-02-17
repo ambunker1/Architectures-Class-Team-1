@@ -43,7 +43,6 @@ public class FrameReader {
           // create a new frame, set it current
           currentFrame = new Frame();
           framesCompleted++;
-          System.out.println("Framereader read " + framesCompleted + " frames.");
         }
         frames.add(currentFrame);
       }

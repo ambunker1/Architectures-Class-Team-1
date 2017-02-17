@@ -32,7 +32,7 @@ public class SinkFilterFileWriter extends FilterFramework {
       PrintWriter buffWriter = new PrintWriter(outFile);
       int framesWritten = 0;
   
-      System.out.print("\n" + this.getName() + "::Middle Reading ");
+ 
   
       while (true) {
         /*************************************************************
@@ -45,13 +45,13 @@ public class SinkFilterFileWriter extends FilterFramework {
           frameReader.put(databyte);
   
           if (frameReader.hasFrameAvailable()) {
-            System.out.println("Frame available. " + bytesread + " bytes read");
+
         	Frame f = frameReader.pollFrame();
-        	System.out.println("Writing Frame "+ framesWritten + " : " + f.toString());
+//        	System.out.println("Writing Frame "+ framesWritten + " : " + f.toString());
             buffWriter.write(f.toString());
             buffWriter.write(NEWLINE);
             framesWritten++;
-            System.out.println(bytesread + " bytes read and " + framesWritten + " frames written");
+ //           System.out.println(bytesread + " bytes read and " + framesWritten + " frames written");
           }
   
         } // try
@@ -60,7 +60,7 @@ public class SinkFilterFileWriter extends FilterFramework {
           frameReader.stop();
           while (frameReader.hasFrameAvailable()) {
         	Frame f = frameReader.pollFrame();
-        	System.out.println("Writing Frame: " + f.toString());
+     //   	System.out.println("Writing Frame: " + f.toString());
             buffWriter.write(f.toString());  
           }
           ClosePorts();
