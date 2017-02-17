@@ -3,7 +3,7 @@ public class SystemB {
 
 	   public static void main( String argv[])
 	   {
-			SourceFilter sourceFilter = new SourceFilter();
+	    SourceFilterFileReader sourceFilter = new SourceFilterFileReader("DataSets/FlightData.dat");
 			FahrenheitToCelsiusFilter fahrenheitToCelsiusFilter = new FahrenheitToCelsiusFilter();
 			PressureFilter pressureFilter = new PressureFilter();
 			FeetToMeterFilter feetToMeterFilter = new FeetToMeterFilter();

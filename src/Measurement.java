@@ -15,10 +15,10 @@ public class Measurement {
     ByteBuffer buff = ByteBuffer.wrap(argMeasurementBytes);
     id = buff.getInt();
     if (id == MeasurementId.TIME.ordinal()) {
-      // Remember, for time id, we are writing it as Long.
+      // Remember, for time value, we are writing it as Long.
       // Therefore, we need to read it as Long.
       Long y = buff.getLong();
-      System.out.println("ms value is " + y);
+//      System.out.println("ms value is " + y);
       value = y.doubleValue();
     } else {
       value = buff.getDouble();
@@ -72,7 +72,7 @@ public class Measurement {
     ByteBuffer buff = ByteBuffer.allocate(BYTESIZE);
     buff.putInt(id);
     if (id == MeasurementId.TIME.ordinal()) {
-      // Remember, for time id, we are writing it as Long.
+      // Remember, for time value, we are writing it as Long.
       // Do not forget to read it as Long.
       buff.putLong(value.longValue());
     }
