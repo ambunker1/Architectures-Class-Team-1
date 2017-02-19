@@ -3,8 +3,10 @@
 public class MergeFilter extends FilterFramework{
 	private FilterFramework Input1;
 	private FilterFramework Input2;
+
 	boolean input1Done = false;
 	boolean input2Done = false;
+	
 	
 	void Connect(FilterFramework upstreamFilter, int index){
 		if(index==1){
@@ -37,6 +39,9 @@ public class MergeFilter extends FilterFramework{
 		      try {
 		        databyte = Input1.ReadFilterInputPort();
 		        frameReader1.put(databyte);
+		        if(frameReader1.hasFrameAvailable()){
+		        	WriteFilterOutputPort(frameReader1.pollFrame().toByteArray());
+		        }
 		        
 		      } // try
 
@@ -47,8 +52,11 @@ public class MergeFilter extends FilterFramework{
 		     }
 		     if(!input2Done){
 			      try{
-			    	  databyte = Input2.ReadFilterInputPort();
-			    	  frameReader2.put(databyte);
+			    	  	databyte = Input2.ReadFilterInputPort();
+			    	  	frameReader2.put(databyte);
+				        if(frameReader1.hasFrameAvailable()){
+				        	WriteFilterOutputPort(frameReader1.pollFrame().toByteArray());
+				        }
 			      }
 			      catch (EndOfStreamException e) {
 				      Input2.ClosePorts();
@@ -57,10 +65,6 @@ public class MergeFilter extends FilterFramework{
 		     }
 		       
 		    } // while
-		    
-		    //after while exits, we have framereader1 and framereader2 both with full queues. Here we'll do the work of sorting and merging the frames,
-		    //then write all the output to the next filter
-		    
 		    
 		  } // run
 	
