@@ -293,6 +293,7 @@ public class FilterFramework extends Thread
 		{
 			InputReadPort.close();
 			for(PipedOutputStream port : OutputWritePorts){
+				port.flush();
 				port.close();
 			}
 			//OutputWritePort.close();

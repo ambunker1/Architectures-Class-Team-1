@@ -4,7 +4,7 @@
  */
 public enum MeasurementId {
 
-  TIME(0), VELOCITY(1), ALTITUDE(2), PRESSURE(3), TEMPERATURE(4), ATTITUDE(5);
+  TIME(0), VELOCITY(1), ALTITUDE(2), PRESSURE(3), TEMPERATURE(4), ATTITUDE(5), PRESSURE_WILD(6);
 
   private int id;
   

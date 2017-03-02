@@ -70,6 +70,9 @@ public class FrameReader {
     }
   }
   
+  public int getFramesSize() {
+      return frames.size();
+  }
 
   /**
    * Tell the reader that it will not receive any byte from now on. Invoke
