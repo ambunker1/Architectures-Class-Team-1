@@ -1,5 +1,4 @@
 
-
 /**
  * A filter that converts 
  * @author team-one
@@ -16,13 +15,12 @@ public class PressureFilter extends FilterFramework {
   {
 
 
-		int bytesread = 0;					// Number of bytes read from the input file.
-		int byteswritten = 0;				// Number of bytes written to the stream.
+
 		byte databyte = 0;					// The byte of data read from the file
+		Frame finalFrame = null;
+		
 
 
-
-		System.out.print( "\n" + this.getName() + "::Middle Reading ");
 
 		while (true)
 		{
@@ -33,7 +31,7 @@ public class PressureFilter extends FilterFramework {
 			try
 			{
 				databyte = ReadFilterInputPort();
-				bytesread++;
+
 				frameReader.put(databyte);
 				Frame frame ;
 				if(frameReader.hasFrameAvailable()){
@@ -42,6 +40,7 @@ public class PressureFilter extends FilterFramework {
 				else{
 					continue;
 				}
+				finalFrame = frame;
 				if(needWildCorrection){
 					double correctedPressure;
 					if(firstPressure){
@@ -67,9 +66,18 @@ public class PressureFilter extends FilterFramework {
 						firstPressure = false;
 					}
 				}
-				byteswritten++;
+
 				if(!needWildCorrection){
 					for(byte b : frame.toByteArray()){
+						WriteFilterOutputPort(b);
+					}
+				}
+				else{
+					Measurement wild = wildFrame.getMeasurement(MeasurementId.PRESSURE);
+					wild.setId(MeasurementId.PRESSURE_WILD.ordinal());
+					Frame outFrame = new Frame();
+					outFrame.addMeasurement(wild);
+					for(byte b : outFrame.toByteArray()){
 						WriteFilterOutputPort(b);
 					}
 				}
@@ -78,8 +86,10 @@ public class PressureFilter extends FilterFramework {
 
 			catch (EndOfStreamException e)
 			{
+				for(byte b : finalFrame.toByteArray()){
+					WriteFilterOutputPort(b);
+				}
 				ClosePorts();
-				System.out.print( "\n" + this.getName() + "::Middle Exiting; bytes read: " + bytesread + " bytes written: " + byteswritten );
 				break;
 
 			} // catch

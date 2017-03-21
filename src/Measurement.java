@@ -33,6 +33,10 @@ public class Measurement {
   public int getId() {
     return id;
   }
+  
+  public void setId(int newId){
+	  id = newId;
+  }
 
   /**
    * Returns the value of the measurement.
